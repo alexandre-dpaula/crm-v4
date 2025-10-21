@@ -1,7 +1,4 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
-  root: true,
-  extends: ['next/core-web-vitals', 'next/typescript'],
-  rules: {
-    'react/jsx-key': 'off'
-  }
+  extends: ['next/core-web-vitals']
 };
