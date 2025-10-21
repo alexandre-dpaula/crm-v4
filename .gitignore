@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+/.next
+/out
+/coverage
+/dist
+/build
+/.turbo
+/.vercel
+*.log
+*.sqlite-journal
+/prisma/dev.db
+/.env
+/.env.*
