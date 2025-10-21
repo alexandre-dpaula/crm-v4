@@ -1,4 +1,4 @@
-import { LeadPriority, Prisma } from '@prisma/client';
+import { Prisma, type Lead } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { handleRouteError } from '@/lib/http';
 import { requireUser } from '@/lib/auth';
@@ -60,7 +60,7 @@ export async function PATCH(
       updateData.company = payload.company || null;
     if (payload.status !== undefined) updateData.status = payload.status || 'open';
     if (payload.priority !== undefined) {
-      updateData.priority = payload.priority ?? LeadPriority.MEDIUM;
+      updateData.priority = (payload.priority as Lead['priority']) ?? 'MEDIUM';
     }
     if (payload.tags !== undefined) {
       updateData.tags = (payload.tags ?? []).filter(

@@ -1,6 +1,5 @@
 import {
   LeadActivityType,
-  LeadPriority,
   type Lead,
   type Prisma
 } from '@prisma/client';
@@ -50,7 +49,7 @@ export async function listLeads(
   filters: {
     pipelineId?: string;
     search?: string;
-    priority?: LeadPriority;
+    priority?: Lead['priority'];
     status?: string;
   } = {}
 ) {

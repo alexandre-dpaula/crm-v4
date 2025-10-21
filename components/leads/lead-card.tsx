@@ -1,6 +1,5 @@
 'use client';
 
-import { LeadPriority } from '@prisma/client';
 import {
   Calendar,
   Mail,
@@ -15,7 +14,10 @@ import { Badge } from '@/components/ui/badge';
 import type { LeadWithRelations, PipelineWithStages } from '@/types';
 import { cn } from '@/lib/utils';
 
-const priorityVariant: Record<LeadPriority, 'default' | 'success' | 'warning' | 'danger'> = {
+const priorityVariant: Record<
+  'LOW' | 'MEDIUM' | 'HIGH' | 'HOT',
+  'default' | 'success' | 'warning' | 'danger'
+> = {
   LOW: 'default',
   MEDIUM: 'success',
   HIGH: 'warning',

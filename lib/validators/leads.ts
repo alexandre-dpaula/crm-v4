@@ -1,7 +1,7 @@
-import { LeadPriority } from '@prisma/client';
 import { z } from 'zod';
 
-const priorityValues = Object.values(LeadPriority);
+export const leadPriorityValues = ['LOW', 'MEDIUM', 'HIGH', 'HOT'] as const;
+export type LeadPriorityValue = (typeof leadPriorityValues)[number];
 
 export const leadUpsertSchema = z.object({
   title: z.string().trim().min(2, 'Título obrigatório.'),
@@ -18,10 +18,9 @@ export const leadUpsertSchema = z.object({
     .or(z.literal('')),
   status: z.string().trim().max(40).optional().or(z.literal('')),
   priority: z
-    .nativeEnum(LeadPriority)
+    .enum(leadPriorityValues)
     .optional()
-    .default(LeadPriority.MEDIUM)
-    .transform((value) => value ?? LeadPriority.MEDIUM),
+    .transform((value) => value ?? 'MEDIUM'),
   tags: z.array(z.string().trim().min(1)).optional().default([]),
   contactEmail: z
     .string()
@@ -56,7 +55,7 @@ export const leadFilterSchema = z.object({
   priority: z
     .string()
     .optional()
-    .refine((value) => !value || priorityValues.includes(value as LeadPriority), {
+    .refine((value) => !value || leadPriorityValues.includes(value as LeadPriorityValue), {
       message: 'Prioridade inválida.'
     }),
   status: z.string().optional()

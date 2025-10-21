@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { PrismaClient, LeadPriority } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { hashPassword } from '../lib/passwords';
 
 const prisma = new PrismaClient();
@@ -58,7 +58,7 @@ async function main() {
         company: 'Empresa Alpha',
         value: 15000,
         status: 'open',
-        priority: LeadPriority.MEDIUM,
+        priority: 'MEDIUM',
         contactEmail: 'alice@alpha.com',
         notes: 'Interessada em demonstração completa.',
         pipelineId: pipeline.id,
@@ -70,7 +70,7 @@ async function main() {
         company: 'Beta Solutions',
         value: 24000,
         status: 'open',
-        priority: LeadPriority.HOT,
+        priority: 'HOT',
         contactEmail: 'paulo@beta.com',
         notes: 'Busca implementação em 45 dias.',
         pipelineId: pipeline.id,

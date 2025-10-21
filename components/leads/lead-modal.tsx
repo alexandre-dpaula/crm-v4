@@ -12,10 +12,9 @@ import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { leadUpsertSchema } from '@/lib/validators/leads';
-import type { LeadWithRelations, PipelineWithStages } from '@/types';
-import { LeadPriority } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
 import { leadApi } from '@/lib/api/leads';
+import type { LeadWithRelations, PipelineWithStages } from '@/types';
 
 type FormValues = Omit<
   z.infer<typeof leadUpsertSchema>,
@@ -40,7 +39,7 @@ const defaultValues: FormValues = {
   company: '',
   value: '',
   status: 'open',
-  priority: LeadPriority.MEDIUM,
+  priority: 'MEDIUM',
   tags: '',
   contactEmail: '',
   contactPhone: '',
@@ -95,7 +94,7 @@ export function LeadModal({
         company: lead?.company ?? '',
         value: lead?.value ? String(lead.value) : '',
         status: lead?.status ?? 'open',
-        priority: lead?.priority ?? LeadPriority.MEDIUM,
+        priority: lead?.priority ?? 'MEDIUM',
         tags: Array.isArray(lead?.tags) ? lead?.tags.join(', ') : '',
         contactEmail: lead?.contactEmail ?? '',
         contactPhone: lead?.contactPhone ?? '',
@@ -222,7 +221,7 @@ export function LeadModal({
           <div>
             <Label htmlFor="priority">Prioridade</Label>
             <Select id="priority" {...form.register('priority')}>
-              {Object.values(LeadPriority).map((priority) => (
+              {['LOW', 'MEDIUM', 'HIGH', 'HOT'].map((priority) => (
                 <option key={priority} value={priority}>
                   {priority}
                 </option>

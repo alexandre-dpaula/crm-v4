@@ -1,4 +1,4 @@
-import { LeadPriority, Prisma } from '@prisma/client';
+import { Prisma, type Lead } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { handleRouteError } from '@/lib/http';
 import { requireUser } from '@/lib/auth';
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 
     const leads = await listLeads(user.id, {
       pipelineId: filters.pipelineId,
-      priority: filters.priority as LeadPriority | undefined,
+      priority: filters.priority as Lead['priority'] | undefined,
       status: filters.status,
       search: filters.search
     });
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
       company: payload.company || null,
       value: parseValue(payload.value),
       status: payload.status || 'open',
-      priority: payload.priority ?? LeadPriority.MEDIUM,
+      priority: (payload.priority as Lead['priority']) ?? 'MEDIUM',
       tags: parseTags(payload.tags),
       contactEmail: payload.contactEmail || null,
       contactPhone: payload.contactPhone || null,
